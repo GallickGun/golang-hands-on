@@ -9,13 +9,15 @@ func main() {
 
 	taskItems := []string{"Learn Go", "Eat Dinner", "Read Email"}
 
-	categoryOne := "Private"
+	//categoryOne := "Private"
 	// categoryTwo := "Work"
 
 	fmt.Println("To Do List")
 
 	fmt.Println()
-	fmt.Println(categoryOne)
-	fmt.Println(taskItems)
+
+	for _, task := range taskItems {
+		fmt.Println(task)
+	}
 
 }

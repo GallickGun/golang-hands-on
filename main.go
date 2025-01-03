@@ -1,31 +1,32 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
+
+var (
+	taskOne   = "Learn Go"
+	taskTwo   = "Eat Dinner"
+	taskThree = "Read Email"
+)
+
+var taskItems = []string{taskOne, taskTwo, taskThree}
 
 func main() {
 
-	var (
-		taskOne   = "Learn Go"
-		taskTwo   = "Eat Dinner"
-		taskThree = "Read Email"
-	)
-
-	var taskItems = []string{taskOne, taskTwo, taskThree}
-
-	fmt.Println("To Do List")
-
-	fmt.Println()
-	printTasks(taskItems)
-	taskItems = addTasks(taskItems, "Sleep")
+	http.HandleFunc("/hello", helloUser)
+	http.HandleFunc("/show-tasks", showTasks)
+	http.ListenAndServe(":8080", nil)
 }
 
-func printTasks(taskItems []string) {
+func helloUser(writer http.ResponseWriter, request *http.Request) {
+	var greeting = "Hello, User! Welcome to the To Do List App!"
+	fmt.Fprintln(writer, greeting)
+}
+
+func showTasks(writer http.ResponseWriter, request *http.Request) {
 	for _, task := range taskItems {
-		fmt.Println(task)
+		fmt.Fprintln(writer, task)
 	}
-}
-
-func addTasks(taskItems []string, newTask string) []string {
-	var updatedTasks = append(taskItems, newTask)
-	return updatedTasks
 }
